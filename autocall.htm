@@ -166,8 +166,30 @@
         // set debug level
         SIPml.setDebugLevel((window.localStorage && window.localStorage.getItem('org.doubango.expert.disable_debug') == "true") ? "error" : "info");
 
-        loadCredentials();
-        loadCallOptions();
+        //loadCredentials();
+        //loadCallOptions();
+
+        // Grab the URL
+        // PARAMETERS!!!!!!!!!!
+        var get_vars_array = {};
+        var url_parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+            get_vars_array[key] = value;
+        });
+
+        console.log(get_vars_array);
+
+        // Set them while the setting's good
+        txtPrivateIdentity.value = get_vars_array['txtPrivateIdentity'];
+        txtPublicIdentity.value = get_vars_array['txtPublicIdentity'];
+        txtPassword.value = get_vars_array['txtPassword'];
+        txtRealm.value = get_vars_array['txtRealm'];
+        txtPhoneNumber.value = get_vars_array['txtPhoneNumber'];
+        var call_type = get_vars_array['callType'];
+
+        // Initialize call button
+        uiBtnCallSetText("Call");
+
+        sipCall(call_type);
 
         // Initialize call button
         uiBtnCallSetText("Call");
